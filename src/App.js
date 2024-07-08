@@ -83,7 +83,7 @@ function Form({ onAddItems }) {
 function PackingList({ items, onDeleteItem }) {
   return (
     <div className="list">
-      <ul>
+      <ul style={{ overflow: "auto", scrollbarWidth: "none" }}>
         {items.map((i) => (
           <Item item={i} key={i.id} onDeleteItem={onDeleteItem} />
         ))}
@@ -97,15 +97,7 @@ function Item({ item, onDeleteItem }) {
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          console.log("df");
-          onDeleteItem(item.id);
-        }}
-      >
-        ❌
-      </button>
+      <button onClick={() => onDeleteItem(item.id)}>❌</button>
     </li>
   );
 }
