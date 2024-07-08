@@ -23,6 +23,9 @@ export default function App() {
       items.map((it) => (it.id === id ? { ...it, packed: !it.packed } : it))
     );
   }
+  function handleClear() {
+    setItems((items) => []);
+  }
 
   return (
     <div className="app">
@@ -32,6 +35,7 @@ export default function App() {
         items={items}
         onDeleteItem={handleDeleteItem}
         handleToggleItem={handleToggleItem}
+        handleClear={handleClear}
       />
       <Status items={items} />
     </div>
@@ -89,7 +93,7 @@ function Form({ onAddItems }) {
     </form>
   );
 }
-function PackingList({ items, onDeleteItem, handleToggleItem }) {
+function PackingList({ items, onDeleteItem, handleToggleItem, handleClear }) {
   const [sortBy, setSortBy] = useState("input");
   let sortedItems;
   if (sortBy === "input") sortedItems = items;
@@ -126,6 +130,7 @@ function PackingList({ items, onDeleteItem, handleToggleItem }) {
           <option value="description">Sort by description Order</option>
           <option value="packed">Sort by packed status</option>
         </select>
+        <button onClick={handleClear}>Clear List</button>
       </div>
     </div>
   );
