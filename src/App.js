@@ -33,7 +33,7 @@ export default function App() {
         onDeleteItem={handleDeleteItem}
         handleToggleItem={handleToggleItem}
       />
-      <Status />
+      <Status items={items} />
     </div>
   );
 }
@@ -120,10 +120,17 @@ function Item({ item, onDeleteItem, onhandleToggleItem }) {
     </li>
   );
 }
-function Status() {
+function Status({ items }) {
+  //derived state
+  const numItems = items.length;
+  const itemPacked = items.filter((item) => item.packed).length;
   return (
     <footer className="stats">
-      <em> 🧳You have 3 itmes on your tist, and you already packed X</em>
+      <em>
+        {" "}
+        🧳You have {numItems} itmes on your tist, and you already packed{" "}
+        {itemPacked}
+      </em>
     </footer>
   );
 }
