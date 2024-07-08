@@ -92,11 +92,20 @@ function Form({ onAddItems }) {
 function PackingList({ items, onDeleteItem, handleToggleItem }) {
   const [sortBy, setSortBy] = useState("input");
   let sortedItems;
-  if (sortBy === "input") sortedItems: items;
+  if (sortBy === "input") sortedItems = items;
+  if (sortBy === "description")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+
+  if (sortBy === "packed")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
   return (
     <div className="list">
       <ul style={{ overflow: "auto", scrollbarWidth: "none" }}>
-        {items.map((i) => (
+        {sortedItems.map((i) => (
           <Item
             item={i}
             key={i.id}
@@ -109,7 +118,7 @@ function PackingList({ items, onDeleteItem, handleToggleItem }) {
         <select
           value={sortBy}
           onChange={(e) => {
-            onSetSortBy(e.target.value);
+            setSortBy(e.target.value);
             console.log(e.target.value);
           }}
         >
