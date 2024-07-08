@@ -90,6 +90,9 @@ function Form({ onAddItems }) {
   );
 }
 function PackingList({ items, onDeleteItem, handleToggleItem }) {
+  const [sortBy, setSortBy] = useState("input");
+  let sortedItems;
+  if (sortBy === "input") sortedItems: items;
   return (
     <div className="list">
       <ul style={{ overflow: "auto", scrollbarWidth: "none" }}>
@@ -102,6 +105,19 @@ function PackingList({ items, onDeleteItem, handleToggleItem }) {
           />
         ))}
       </ul>
+      <div>
+        <select
+          value={sortBy}
+          onChange={(e) => {
+            onSetSortBy(e.target.value);
+            console.log(e.target.value);
+          }}
+        >
+          <option value="input">Sort by input Order</option>
+          <option value="description">Sort by description Order</option>
+          <option value="packed">Sort by packed status</option>
+        </select>
+      </div>
     </div>
   );
 }
